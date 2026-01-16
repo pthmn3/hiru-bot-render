@@ -9,12 +9,13 @@
     "axios": "^1.6.0",
     "express": "^4.18.2",
     "qrcode": "^1.5.3",
-    "whatsapp-web.js": "github:wppconnect-team/whatsapp-web.js"
+    "whatsapp-web.js": "git+https://github.com/wppconnect-team/whatsapp-web.js.git"
   },
   "engines": {
     "node": ">=18.0.0"
   }
 
 }
+
 
 
