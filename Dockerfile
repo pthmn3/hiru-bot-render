@@ -1,10 +1,10 @@
 FROM node:18-slim
 
-# Install Google Chrome Stable and fonts
-# Note: This installs the necessary libs to make the browser work with Puppeteer.
+# Install Google Chrome Stable, fonts, AND GIT (Required for whatsapp-web.js)
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
+    git \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/googlechrome-linux-keyring.gpg \
     && sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/googlechrome-linux-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
     && apt-get update \
