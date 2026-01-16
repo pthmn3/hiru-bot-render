@@ -194,7 +194,32 @@ process.on('uncaughtException', (err) => {
     // client.destroy().then(() => client.initialize());
 });
 
+// Add this to the very bottom of bot.js
+
+process.on('unhandledRejection', (reason, promise) => {
+    // Convert reason to string to check the error message
+    const errorString = reason.toString();
+    const stackString = reason.stack ? reason.stack.toString() : '';
+
+    if (errorString.includes('markedUnread') || stackString.includes('markedUnread')) {
+        console.log('⚠️ Ignoring "markedUnread" error. Bot is still running.');
+        return; // Don't exit, don't crash
+    }
+
+    console.error('🔥 Unhandled Rejection:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+    const errorString = err.toString();
+    if (errorString.includes('markedUnread')) {
+        console.log('⚠️ Ignoring "markedUnread" error. Bot is still running.');
+        return;
+    }
+    console.error('🔥 Uncaught Exception:', err);
+});
+
 process.on('unhandledRejection', (reason, promise) => {
     console.error('🔥 Unhandled Rejection:', reason);
 });
+
 
