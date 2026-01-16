@@ -181,3 +181,20 @@ client.on('message', async msg => {
 });
 
 client.initialize();
+
+// Prevent bot from crashing on "markedUnread" errors
+process.on('uncaughtException', (err) => {
+    console.error('🔥 Uncaught Exception:', err);
+    // If it's the specific WhatsApp error, ignore it to keep bot alive
+    if (err.message.includes('markedUnread')) {
+        console.log('⚠️ Ignoring markedUnread error to keep bot online.');
+        return;
+    }
+    // Optional: Restart client if needed
+    // client.destroy().then(() => client.initialize());
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('🔥 Unhandled Rejection:', reason);
+});
+
